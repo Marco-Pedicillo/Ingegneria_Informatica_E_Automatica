@@ -1,0 +1,41 @@
+Domanda 2)
+Spiegare che cosa sono le operazioni di “compare-and-swap” e “exchange”, come possono essere utilizzate per sincronizzare processi per l’accesso ad una sezione critica, possibilmente tramite pseudo-codice. Elencare vantaggi e svantaggi di queste primitive.
+
+Le due funzioni servono per applicare la mutua esclusione a livello Hardware.
+L'operazione compare-and-swap confronta un valore in memoria con un valore di test, se sono uguali si scambia il valore in memoria con uno nuovo; mentre l'operazione Exchange scambia il valore contenuto in un registro con un valore in memoria.
+
+Vantaggi: si possono applicare su un qualsiasi numero di processi e può supportare diverse sezioni critiche definendo più variabili di controllo.
+Svantaggi: Busy Waiting -> il processo che attende di entrare nella sezione critica consuma tempo del processore;
+	   Starvation -> si ha quando un processo lascia la sezione critica e più di un processo sta aspettando per entrare;
+	   Deadlock -> possibile
+	   Non disponibile su ogni architettura
+
+compare_and_swap(int *reg, int oldval, int newval){
+	int old_reg_val = *reg;
+	if(old_reg_val = oldval) *reg = newval;
+	return old_reg_val; 
+}
+
+exchange(*reg, *mem){
+	int temp;
+	temp = *mem;
+	*mem = *reg
+	*reg = temp;
+}
+
+//ESEMPIO IMPLEMENTAZIONE MUTUA ESCLUSIONE CON COMPARE & SWAP
+int bolt;
+int n; //num proc
+void P{
+	while(1){
+		while(compareswap(&bolt, 0, 1) == 1) 
+		//do nothing
+		/CS/
+		bolt = 0;
+	}
+}
+
+main(){
+	bolt = 0;
+	parbegin(P(1), P(2) ...);
+}

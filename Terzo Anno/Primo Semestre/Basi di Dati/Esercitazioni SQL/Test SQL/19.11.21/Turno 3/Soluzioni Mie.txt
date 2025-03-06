@@ -1,0 +1,22 @@
+1) select distinct r.codiceg
+   from richiesta r, bambino b
+   where r.codiceb = b.codice and r.preferenza = 1 and b.citta = 'Roma'
+2) select distinct r1.codiceg
+   from richiesta r1, richiesta r2, bambino b1, bambino b2
+   where r1.codiceg = r2.codiceg and r1.codiceb = b1.codice and r2.codiceb = b2.codice and r1.preferenza = r2.preferenza and b1.citta != b2.citta
+3) select distinct g.codice, g.categoria, max(r.preferenza)
+   from giocattolo g, richiesta r
+   where g.codice = r.codiceg
+   group by g.codice, g.categoria
+4) select distinct r.codiceb, g.categoria, count(r.codiceg)
+   from giocattolo g, richiesta r
+   where r.codiceg = g.codice
+   group by r.codiceb, g.categoria
+   union
+   select distinct b.codice, g.categoria, 0
+   from bambino b, giocattolo g
+   where b.codice not in (select distinct r.codiceb
+			  from richiesta r, giocattolo g1
+			  where g1.codice = r.codiceg and g1.categoria = g.categoria)
+
+5)

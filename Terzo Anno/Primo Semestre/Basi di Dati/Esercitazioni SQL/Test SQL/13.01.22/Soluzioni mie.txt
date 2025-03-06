@@ -1,0 +1,34 @@
+1) select distinct p.lavoratore
+   from partecipa p, attivita a
+   where p.codiceattivita = a.codice and a.durata > 10
+2) select distinct a.progetto, count(p.lavoratore)
+   from attivita a join partecipa p on p.codiceattivita = a.codice
+   group by a.progetto
+3) select distinct sott1.lavoratore, avg(sott2.conta)
+   from (select distinct pa.lavoratore, at.progetto
+	 from partecipa pa, attivita at
+	 where pa.codiceattivita = at.codice) as sott1,
+	 (select distinct a.progetto, count(a.codice) as conta
+	 from attivita a
+	 group by a.progetto) as sott2
+   where sott1.progetto = sott2.progetto	   
+   group by sott1.lavoratore
+4) select distinct p.lavoratore, a.progetto, sum(a.durata) as impegno
+   from partecipa p, attivita a
+   where p.codiceattivita = a.codice 
+   group by p.lavoratore, a.progetto
+   union
+   select distinct p.lavoratore, a.progetto, 0
+   from partecipa p, attivita a
+   where (p.lavoratore, a.progetto) not in (select distinct pa.lavoratore, at.progetto
+					    from partecipa pa, attivita at
+					    where pa.codiceattivita = at.codice and at.progetto != a.progetto)
+5) select distinct res.lavoratore
+   from (select distinct p.lavoratore , a.progetto, count(*) as num
+	 from partecipa p, attivita a
+	 where p.codiceattivita = a.codice
+	 group by p.lavoratore, a.progetto) as res
+   where res.num = (select count(*)
+		    from attivita a
+		    where a.progetto = res.progetto
+		    group by a.progetto)

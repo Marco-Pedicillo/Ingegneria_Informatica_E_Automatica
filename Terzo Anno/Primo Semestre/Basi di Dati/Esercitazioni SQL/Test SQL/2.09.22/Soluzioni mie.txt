@@ -1,0 +1,24 @@
+1) select distinct r.codice, r.giorno, r.valore
+   from (rilevazione r join centralina c on r.codice = c.codice) join citta ci on ci.id = c.citta 
+   where r.valore < 1100 and c.tipo = 200 and ci.nome != 'Milano'
+2) select distinct cit.nome
+   from (citta cit join centralina c1 on c1.citta = cit.id),(citta cit2 join centralina c2 on c2.citta = cit2.id)
+   where c1.tipo = c2.tipo and c1.codice != c2.codice and cit.nome = cit2.nome
+3) select distinct c.codice, cit.regione, count(r.codice)
+   from (centralina c join rilevazione r on r.codice = c.codice) join citta cit on cit.id = c.citta
+   group by c.codice, cit.regione
+   union
+   select distinct c.codice, cit.regione, 0
+   from centralina c join citta cit on c.citta = cit.id
+   where c.codice not in (select distinct r.codice from rilevazione r)
+4) select distinct c.codice
+   from centralina c
+   where c.codice not in (select distinct ri.codice
+			  from rilevazione ri 
+			  where ri.giorno < 32)
+   union
+   select distinct c.codice
+   from centralina c
+   where c.codice not in (select distinct r.codice
+			  from rilevazione r)
+5)

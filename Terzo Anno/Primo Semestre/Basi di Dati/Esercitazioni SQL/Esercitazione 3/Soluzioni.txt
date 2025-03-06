@@ -1,0 +1,23 @@
+1) select persona.nome, citta.regione
+   from persona, citta
+   where persona.eta >= 18 and persona.cittaNascita = citta.nome
+2) select distinct citta.regione
+   from persona, citta, genia
+   where persona.nome = genia.genitore and persona.eta >= 50 and persona.cittaNascita = citta.nome
+3) select genia.genitore, genia.figlio
+   from persona as p1, persona as p2, genia
+   where p1.nome = genia.figlio and p2.nome = genia.genitore and p1.cittaNascita = p2.cittaNascita
+4) select distinct p3.nome
+   from persona as p2, persona as p3, genia as g1, genia as g2
+   where p2.nome = g1.genitore and p2.nome = g2.figlio and p3.nome = g2.genitore and p3.sesso = 'M'
+5) select distinct citta.regione
+   from persona as p2, persona as p3, genia as g1, genia as g2, citta
+   where p2.nome = g1.genitore and p2.nome = g2.figlio and p3.nome = g2.genitore and p3.sesso = 'M' and p3.eta <= 60 and p3.cittaNascita = citta.nome 
+6) select g1.figlio as Fratello1, g3.figlio as Fratello2
+   from (genia g1 join genia g2 on (g1.figlio = g2.figlio and g1.genitore > g2.genitore)) 
+     join (genia g3 join genia g4 on (g3.figlio = g4.figlio and g3.genitore > g4.genitore))
+	 on (g1.genitore = g3.genitore and g2.genitore = g4.genitore and g1.figlio != g3.figlio and g1.figlio > g3.figlio)
+7)select g2.genitore, g3.genitore
+  from ((genia g1 join persona p1 on g1.genitore = p1.nome) join genia g2 on g1.genitore = g2.figlio)
+     join genia g3 on (g2.genitore != g3.genitore and g1.genitore = g3.figlio and g3.genitore < g2.genitore)
+  where p1.sesso = 'M'

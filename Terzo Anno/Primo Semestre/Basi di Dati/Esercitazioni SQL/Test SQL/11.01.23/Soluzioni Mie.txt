@@ -1,0 +1,28 @@
+1) select distinct t.codice, t.costo
+   from (tipocomponente t join contenuto c on c.codicet = t.codice) join prodotto p on p.codice = c.codicep
+   where p.categoria = 'edilizia' or p.categoria = 'sport'
+2) select distinct c.codicep
+   from contenuto c, tipocomponente t
+   where c.codicet = t.codice and t.materiale = 'ferro' 
+   except
+   select distinct c.codicep
+   from contenuto c, tipocomponente t
+   where c.codicet = t.codice and t.materiale = 'plastica' 
+3) select distinct c.codicep, t.materiale, sum(c.quantita)
+   from contenuto c join tipocomponente t on t.codice = c.codicet
+   group by c.codicep, t.materiale
+   union
+   select distinct p.codice, t.materiale, 0
+   from prodotto p, tipocomponente t
+   where (p.codice, t.materiale) not in (select distinct c.codicep, t1.materiale
+					 from contenuto c, tipocomponente t1
+					 where c.codicet = t.codice)
+4) select distinct t.codice, t.costo, count(c.codicep)
+   from tipocomponente t, contenuto c
+   where t.codice = c.codicet and c.quantita >= 3
+   group by t.codice, t.costo
+5) select distinct t.codice
+   from tipocomponente t
+   where t.codice not in (select distinct c.codicet
+			  from contenuto c join prodotto p on p.codice = c.codicep
+			  where p.categoria is not null)

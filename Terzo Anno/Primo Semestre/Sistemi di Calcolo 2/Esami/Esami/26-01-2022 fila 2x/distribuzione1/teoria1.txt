@@ -1,0 +1,16 @@
+Domanda) Descrivere le condizioni necessarie e sufficienti per il verificarsi del deadlock e gli approcci per la gestione del deadlock (non mi riferisco a semafori, monitor….) 
+
+Le condizioni per il Deadlock sono:
+Mutua Esclusione(Necessaria ma non sufficiente): ogni risorsa può essere utilazzata da un processo alla volta;
+Hold and Wait(Necessaria ma non sufficiente): un processo può detenere risorse e chiederne altre;
+No Preemption(Necessaria ma non sufficiente): un processo non può essere forzato a rilasciare una risorsa che detiene;
+Circular Wait(Necessaria e Sufficiente): ciascun processo coinvolto nel deadlock sta aspettando una risorsa detenuta dall'altro.
+
+Gli approcci risolutivi sono 3:
+Prevengo: elimino le condizioni che lo generano. Prevengo le 3 condizioni necessarie o l'unica sufficiente.
+
+Evito: faccio scelte dinamiche sullo stato attuale delle risorse. Decido quindi se la richiesta (e future richieste) di allocazione di una risorsa da parte di un processo porterà ad un deadlock o no.
+
+Individuo: concedo sempre risorse ai processi ma le controllo periodicamente per trovare un deadlock e risolverlo.
+
+ 

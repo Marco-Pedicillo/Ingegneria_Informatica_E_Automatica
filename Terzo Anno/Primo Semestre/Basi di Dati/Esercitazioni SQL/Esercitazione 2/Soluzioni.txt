@@ -1,0 +1,10 @@
+1) \project_{bar}(\select_{birra = "Peroni"}(SERVE));
+2) \project_{bevitore}(\select_{birra = "Amstel" OR birra = "Corona"}(GRADISCE));
+3) \project_{bevitore}(\select_{birra = "Amstel" AND birra2 = "Corona"}(GRADISCE \join \rename_{bevitore, birra2}(GRADISCE)));
+4) \rename_{nome}(\project_{bar}(Frequenta) \union \project_{bar}(Serve)) \diff (\project_{nome}(Bar));
+5) \project_{nome}(Birra) \diff \project_{birra}(Serve);
+6) \project_{nome, nome2}(\select_{nome != nome2 AND nome > nome2}(Bevitore \join \rename_{nome2, indirizzo}(Bevitore)));
+7) \rename_{bevitore, birra}(\project_{nome}(Bevitore) \cross \project_{nome}(Birra)) \diff Gradisce;
+8) \project_{bevitore}(\rename_{bevitore, indirizzo}(Bevitore)) \diff \project_{bevitore}(\rename_{bevitore, birra}(\project_{nome}(Bevitore) \cross \project_{nome}(Birra)) \diff Gradisce);
+9) \project_{birra}(Serve \diff \project_{bar1, birra1, prezzo1}(Serve \join_{prezzo > prezzo1} \rename_{bar1, birra1, prezzo1}(Serve)));
+10) Serve \diff \project_{bar1, birra1, prezzo1}(Serve \join_{birra = birra1 AND prezzo < prezzo1} \rename_{bar1, birra1, prezzo1}(Serve));

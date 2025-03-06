@@ -1,0 +1,23 @@
+1) select distinct p.codice, p.categoria
+   from prodotto p, tipocomponente tc
+   where p.codice = tc.codice and tc.materiale = 'Legno'
+2) select distinct tc.codice, count(c.codicep)
+   from tipocomponente tc, contenuto c
+   where tc.codice = c.codicet
+   group by tc.codice
+3) select distinct c.codicep
+   from tipocomponente t join contenuto c on c.codicet = t.codice
+   where c.codicep not in (select contenuto.codicep
+			   from contenuto join tipocomponente on contenuto.codicet = tipocomponente.codice
+			   where tipocomponente.materiale != t.materiale)
+4) select distinct t.materiale, c.codicep, count(t.materiale)
+   from tipocomponente t, contenuto c
+   where c.codicet = t.codice
+   group by t.materiale, c.codicep
+   union
+   select distinct t.materiale, c.codicep, 0
+   from tipocomponente t, contenuto c
+   where c.codicet not in (select distinct tipocomponente.codice
+			   from tipocomponente join contenuto on tipocomponente.codice = contenuto.codicet
+			   where tipocomponente.materiale = t.materiale and contenuto.codicep = c.codicep) SBAGLIATO
+5) 

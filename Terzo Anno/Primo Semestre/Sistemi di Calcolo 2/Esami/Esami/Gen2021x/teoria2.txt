@@ -1,0 +1,5 @@
+A)
+Tale modifica porta ad un problema di mutua esclusione. Poichè l'array num[N] è composto da tutti zeri, ogni processo che andrà a prendere il proprio ticket per la sezione critica si troverà con il numero 0. Dato che non ci sarà nessun ticket maggiore di zero tutti i processi non soddisferanno la prima condizione del secondo while all'interno del for (num[j] != 0) e allora usciranno dal ciclo tutti insieme non garantendo la mutua esclusione.
+
+B)
+Non abbiamo mutua esclusione per il problema spiegato sopra. Il deadlock non è garantito poichè nessun processo aspetta qualcosa che non avverà mai, tutti entrano ed escono dal ciclo senza pause. Neanche la starvation è garantita perchè, appunto, nessu processo è fermo ad aspettare.

@@ -1,0 +1,28 @@
+void max_row_col(double **input, int rows, int cols, int* max_row, int* max_col) {
+	
+  int v[rows];
+  int max = 0;
+  for(int i=0; i<rows; i++){
+    v[i]= 0;
+  	for(int j=0; j<cols; j++)
+      v[i] += input[i][j];
+  }
+  for(int x=0; x<rows; x++)
+    if(v[x] > max){
+      max= v[x];
+      *max_row = x;
+    }  
+  
+  int V[cols];
+  int MAX = 0;
+  for(int j=0; j<cols; j++){
+    V[j]=0;
+  	for(int i=0; i<rows; i++)
+      V[j] += input[i][j];
+  }
+  for(int y=0; y<cols; y++)
+    if(V[y] > MAX){
+      MAX= V[y];
+      *max_col = y;
+    }  
+}

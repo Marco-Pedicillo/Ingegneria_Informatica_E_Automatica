@@ -1,0 +1,19 @@
+TipoLista append(TipoLista l, T e){
+	if(estVuota (l))
+      	return cons(e, l);
+  	else
+      return cons(car(l), append(cdr(l),e));
+}
+
+TipoLista iniziali(TipoLista list, int k){
+  	TipoLista l = listaVuota();
+  	if(estVuota(list))
+      return l;
+	while(k>0){
+    	l = append(l,car(list));
+      	list = cdr(list);
+      	--k;
+    }
+  	return l;
+}
+

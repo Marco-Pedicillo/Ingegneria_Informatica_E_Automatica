@@ -1,0 +1,4 @@
+A)
+Un problema dell'algoritmo di Dijkstra è che dal ciclo while possono uscire 2 processi contemporaneamente settati a true, e cioè pronti per entrare in sezione critica. Il ciclo for di dopo serve proprio per scegliere un solo processo. Cambiando la condizione dell'if in questo caso il for non va a vedere se c'è un altro processo = true, ma a cercare un altro processo = false, cioè tutti gli altri processi. Questo significa che il processo true tornerà nel ciclo while e non entrerà mai nella sezione critica a causa di un loop infinito. xx
+
+B)

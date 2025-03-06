@@ -1,0 +1,15 @@
+1) select distinct g.codice, g.sesso
+   from (giornalista g join firma f on f.codice = g.codice) join testata t on t.nome = f.nome
+   where t.orientamento = g.orientamento and f.articoli > 1
+2) select distinct g.codice, t.direttore, sum(f.articoli)
+   from giornalista g, firma f, testata t
+   where g.codice = f.codice and t.nome = f.nome
+   group by g.codice, t.direttore
+3) select distinct g.codice
+   from testata t, giornalista g
+   where g.codice = t.direttore and 
+	 g.codice not in (select distinct te.direttore
+			  from testata te
+			  where te.orientamento != g.orientamento)
+4)
+5)

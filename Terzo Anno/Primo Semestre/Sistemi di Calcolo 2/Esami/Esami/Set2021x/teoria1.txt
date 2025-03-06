@@ -1,0 +1,13 @@
+Domanda) Discutere delle varie policy per il controllo degli accessi a un sistema informatico
+
+Nel controllo di accesso, si assegna il tipo di accesso in base alle circostanze o all’utente che lo richiede.Le politiche di access control sono di tre tipi:
+
+ • Discretionary Access Control (DAC): limita l’accesso alle risorse del sistema in base alle
+   autorizzazioni del soggetto che sta tentando di accedervi;
+
+ • Mandatory Access Control (MAC): limita l’accesso alle risorse del sistema in base alla sensibilità 
+   delle informazioni che le risorse contengono e alle autorizzazioni del soggetto che sta
+   tentando di accedervi;
+
+ • Role-Based Access Control (RBAC): limita l’accesso alle risorse del sistema in base ai ruoli
+   dei soggetti che stanno tentando di accedervi. Si possono avere più ruoli.

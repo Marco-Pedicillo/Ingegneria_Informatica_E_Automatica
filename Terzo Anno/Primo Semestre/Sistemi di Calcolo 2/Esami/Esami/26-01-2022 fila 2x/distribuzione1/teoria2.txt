@@ -1,0 +1,5 @@
+A)
+Questa modifica comporta un problema per l'accessp all'interno della sezione critica. Tutti i processi rispetteranno la prima condizione del secondo while all'interno del for (num[j]!=0), quindi nessuno uscirà dal ciclo while poichè hanno tutti num!=0 (maggiori di 0). 
+
+B)
+La mutua esclusione è ancora garantita ma sicuramente avremo un deadlock poichè nessun processo riuscirà mai ad entrare nella CS, ed anche starvation.

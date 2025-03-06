@@ -1,0 +1,25 @@
+1) select distinct g.codice, g.nome
+   from giocattolo g, richiesta r
+   where g.categoria != 5 and r.preferenza <= 4 and r.codiceg = g.codice
+2) select distinct r1.codiceb
+   from richiesta r1, richiesta r2
+   where r1.codiceb = r2.codiceb and r1.codiceg = r2.codiceg and r1.preferenza != r2.preferenza
+3) select distinct g.codice, g.categoria, avg(r.preferenza)
+   from giocattolo g, richiesta r
+   where g.codice in (select distinct r1.codiceg
+		      from richiesta r1)
+   group by g.codice
+4) select distinct r.codiceb, r.preferenza, count(r.codiceg)
+   from richiesta r join giocattolo g on g.codice = r.codiceg
+   where g.categoria > 3
+   group by r.codiceb, r.preferenza
+   union
+   select distinct b.codice, r.preferenza, 0
+   from richiesta r, bambino b
+   where b.codice not in (select distinct r1.codiceb
+			  from richiesta r1, giocattolo g1
+			  where r1.codiceg = g1.codice and g1.categoria > 3 and r1.preferenza = r.preferenza)
+5) select distinct r.codiceb, avg(r.preferenza)
+from richiesta r, giocattolo g
+where g.categoria = 1 and r.codiceg = g.codice
+group by r.codiceb DA CONTINUARE

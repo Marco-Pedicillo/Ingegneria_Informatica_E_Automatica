@@ -1,0 +1,30 @@
+void addSCL(TipoSCL *scl, TipoInfoSCL e){
+    TipoSCL temp = *scl;
+    *scl = (TipoNodoSCL*)malloc(sizeof(TipoNodoSCL));
+    (*scl) -> info = e;
+    (*scl) -> next = temp;
+}
+
+void sorted_merge(TipoSCL scl1, TipoSCL scl2, TipoSCL* ris){
+  TipoSCL scl = (TipoSCL)malloc(sizeof(TipoNodoSCL));
+  scl = NULL;
+  
+  if(scl1 == NULL && scl2 == NULL)
+    return;
+  else if(scl1 != NULL && scl2 == NULL){
+    addSCL(&scl, scl1->info);
+  	sorted_merge(scl1->next, scl2, ris);
+  }
+  else if (scl1 == NULL && scl2 != NULL){
+    addSCL(&scl, scl2->info);
+    sorted_merge(scl1, scl2->next, ris);
+  }
+  else if(scl1 -> info <= scl2->info){
+    	addSCL(&scl,scl1->info);
+  		sorted_merge(scl1->next, scl2, ris);  
+  }
+  else{
+   	addSCL(&scl,scl2->info);
+  	sorted_merge(scl1, scl2->next, ris);
+  } 
+}

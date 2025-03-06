@@ -1,0 +1,42 @@
+1) select distinct g.codice, g.cittanascita
+   from (giornalista g join firma f on f.codice = g.codice) join testata t on t.nome = f.nome
+   where g.orientamento != t.orientamento
+2)select distinct g.codice
+  from giornalista g join testata t on g.codice = t.direttore
+  where g.codice not in (select distinct gi.codice
+			 from (giornalista gi join firma f on f.codice = gi.codice) join testata te on te.nome = f.nome
+			 where f.codice = te.direttore)
+  OPPURE
+  select distinct t.direttore 
+  from testata as t 
+  where (t.direttore, t.nome) not in (select distinct codice, nome 
+          			      from firma)
+
+3) select distinct t.orientamento, g.sesso, sum(f.articoli)
+   from giornalista g, firma f, testata t
+   where f.codice = g.codice and f.nome = t.nome
+   group by t.orientamento, g.sesso
+   union
+   select distinct sott1.orientamento, sott2.sesso, 0
+   from (select distinct giornalista.orientamento from giornalista) as sott1,
+        (select distinct giornalista.sesso from giornalista) as sott2
+   where (sott1.orientamento, sott2.sesso) not in (select distinct t.orientamento, g.sesso
+						   from giornalista g, firma f, testata t
+						   where f.codice = g.codice and f.nome = t.nome)
+
+4) select distinct t.nome
+   from testata t
+   where t.nome not in (select distinct t.nome
+			from giornalista g, firma f, testata t 
+			where g.codice = f.codice 
+			      and t.nome = f.nome 
+			      and g.orientamento != t.orientamento)
+5) select distinct g.codice, g.orientamento, sum(f.articoli)
+   from (giornalista g join firma f on f.codice = g.codice) join testata t on t.nome = f.nome
+   group by g.codice, g.orientamento
+   having sum(f.articoli) = (select distinct max(score)
+			     from (select distinct gi.codice, gi.orientamento, sum(fi.articoli) as score
+				   from (giornalista gi join firma fi on fi.codice = gi.codice) join testata te on te.nome = fi.nome
+				   group by gi.codice, gi.orientamento) as sott
+			     where sott.codice = g.codice)
+   order by g.codice

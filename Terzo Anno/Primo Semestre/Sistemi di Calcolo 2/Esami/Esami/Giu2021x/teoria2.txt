@@ -1,0 +1,23 @@
+Inizialmente cambia poco: ogni processo sceglierà
+un numero a partire da 1 in modo non decrescente.
+Chi ha il numero minore (e, in caso di parità, 
+l'indice minore) entra per primo in CS e al termine
+mette il suo num a 1 (si consideri che era già 1, 
+necessariamente).
+Si creerebbe un deadlock nel caso in cui questo 
+processo non volesse più entrare in CS quindi non
+riniziasse l'algoritmo, perché tutti gli 
+altri processi sono bloccati dalle azioni di questo.
+Nel caso in cui, invece, rinizia l'algoritmo, il 
+processo si 'rimetterà in coda' sbloccando gli altri
+processi. Questo vale per ogni processo che termina
+la sezione critica. 
+
+La modifica fatta, in realtà, non cambia le 
+proprietà dell'algoritmo tanto quanto le 
+prestazioni. Tutti i processi faranno busy waiting
+anche se il processo che stanno aspettando ha 
+già terminato la sezione critica. 
+
+Continuano di fatti a valere le proprietà di 
+Mutua escluzione, No Deadlock e No Starvation.

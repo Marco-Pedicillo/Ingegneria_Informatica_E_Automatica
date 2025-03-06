@@ -1,0 +1,17 @@
+Domanda) Spiegare cosa è Inter-Process Communication e motivare la necessità di meccanismi di IPC.
+
+L'Inter-Process Communication (IPC) è un insieme di tecniche e meccanismi utilizzati per consentire la comunicazione e lo scambio di dati tra processi in un sistema operativo. I processi possono essere eseguiti in modo indipendente l'uno dall'altro e, per poter collaborare o condividere informazioni, è necessario utilizzare meccanismi di IPC. Questa comunicazione può avvenire sia all'interno di un singolo computer (IPC locale) che tra computer distinti su una rete (IPC remota).
+
+Esistono diversi motivi per cui i meccanismi di IPC sono essenziali:
+
+1. Condivisione di dati: I processi spesso devono condividere dati tra di loro. Ad esempio, un processo potrebbe produrre dati che devono essere utilizzati da un altro processo. Utilizzando IPC, è possibile trasferire dati tra i processi in modo sicuro e efficiente.
+
+2. Coordinazione: I processi devono spesso coordinare le loro attività. IPC offre strumenti per la sincronizzazione tra i processi, consentendo loro di cooperare e organizzarsi per evitare conflitti e garantire un'esecuzione ordinata delle operazioni.
+
+3. Comunicazione tra applicazioni: In ambienti complessi, diversi programmi o applicazioni possono essere in esecuzione contemporaneamente. IPC è essenziale per consentire la comunicazione e lo scambio di informazioni tra queste applicazioni, che potrebbero essere sviluppate da diversi team o persino da diversi fornitori.
+
+4. Parallelismo: In sistemi multiprocessore o multithreading, i processi devono spesso cooperare e coordinarsi. IPC è utilizzato per facilitare la comunicazione e la sincronizzazione tra i vari thread o processi, consentendo loro di lavorare in parallelo in modo efficiente.
+
+5. Affidabilità e robustezza: IPC può essere utilizzato per implementare meccanismi di comunicazione tra processi che migliorano l'affidabilità del sistema. Ad esempio, un processo potrebbe essere progettato per monitorare e riavviare un altro processo in caso di crash.
+
+Ci sono diversi tipi di meccanismi di IPC, tra cui code di messaggi, memoria condivisa, pipe, socket e altri. La scelta del meccanismo dipende dalle esigenze specifiche dell'applicazione e dalle caratteristiche del sistema in cui viene eseguita. In generale, IPC svolge un ruolo fondamentale nel facilitare la cooperazione e la comunicazione tra i diversi componenti di un sistema distribuito o di un sistema operativo.

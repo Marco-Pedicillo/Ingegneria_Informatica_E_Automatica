@@ -1,0 +1,26 @@
+1) select b.codice, b.nome
+   from Bambino b, Richiesta r
+   where b.citta != 'Milano' and b.codice = r.codiceb and r.preferenza >= 4
+2) select distinct r1.codiceb
+   from Richiesta r1, Richiesta r2, Giocattolo g1, Giocattolo g2 
+   where g1.codice = r1.codiceg and g2.codice = r2.codiceg and r1.preferenza = r2.preferenza and g1.categoria != g2.categoria
+3) select distinct b.codice, b.citta, count(*)
+   from Bambino b, Richiesta r
+   where b.codice = r.codiceb and r.preferenza = 1
+   group by b.codice
+   union
+   select distinct b.codice, b.citta, 0
+   from Bambino b, Richiesta r
+   where b.codice = r.codiceb and b.codice not in (select Richiesta.codiceb
+						   from Richiesta
+						   where  Richiesta.preferenza = 1)
+4) select distinct r.codiceb, r.codiceg, max(r.preferenza)
+   from Richiesta r
+   group by r.codiceb, r.codiceg
+   union 
+   select distinct b.codice, g.codice, 0
+   from Bambino b, Giocattolo g
+   where b.codice not in (select r.codiceb
+			  from Richiesta r
+			  where r.codiceg = g.codice)
+5)

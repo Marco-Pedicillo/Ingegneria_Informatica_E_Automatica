@@ -1,0 +1,25 @@
+Domanda 3)
+ Considerate il seguente algoritmo di Dijkstra per l’accesso in mutua esclusione ad una sezione critica:
+
+ /* global storage */
+ boolean interested[N]  = {false, ..., false}
+ boolean passed[N]  = {false, ..., false}
+ int k = <any>   // k ∈ {0, 1, ..., N-1}
+ /* local info */
+ int i = <entity ID>  // i ∈ {0, 1, ..., N-1}
+ while (True) {
+ 	< NCS >
+ 	1. interested[i] = true
+ 	2. while (k != i) {
+ 		3. passed[i] = false
+ 		4. if ( interested[k] ) then k = i
+ 		}
+ 	5. passed[i] = true
+ 	6. for j in 1 ... N except i do
+ 	7. if ( passed[j] ) then goto 2
+ 	8. <Critical Section>
+ 	9. passed[i] = false; interested[i] = false
+ }
+
+Sostituendo nella riga 4 “if not interested[k] then k=i” con “if interested[k] then k=i” quali sono le problematiche che si creano legate alle proprietà di correttezza di Mutua_Esclusione e no deadlock? Se e quali vengono violate? Motivare la risposta.
+

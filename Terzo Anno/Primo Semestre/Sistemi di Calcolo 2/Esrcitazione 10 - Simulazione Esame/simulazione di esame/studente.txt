@@ -1,0 +1,8 @@
+Nome: Marco
+Cognome: Pedicillo
+Matricola: 1983285
+E-mail: pedicillo.1983285@studenti.uniroma1.it
+
+Fornisco il consenso alla pubblicazione dei risultati nella
+forma <matricola, voto> sul sito del corso (SI/NO): SI
+

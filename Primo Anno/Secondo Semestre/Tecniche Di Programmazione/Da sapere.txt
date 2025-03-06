@@ -1,0 +1,16 @@
+void addSCL(TipoSCL *scl, TipoInfoSCL e){
+    TipoSCL temp = *scl;
+    *scl = (TipoNodoSCL*)malloc(sizeof(TipoInfoSCL));
+    (*scl) -> info = e;
+    (*scl) -> next = temp;
+}
+
+bool estFoglia (TipoAlbero a){
+    return (estVuoto(sinistro(a)) && estVuoto(destro(a)));
+}
+
+TipoLista append (TipoLista l , T e){
+    if (estVuota(l))
+        return cons (e,l);
+    return cons(car(l),append(cdr(l),e));
+}

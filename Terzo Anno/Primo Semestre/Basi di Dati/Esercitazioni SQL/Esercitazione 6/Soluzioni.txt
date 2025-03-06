@@ -1,0 +1,72 @@
+ESERCIZIO 1
+
+create table turista (
+	codicefiscale varchar(20) constraint pk1 primary key,
+	cognome varchar(20),
+	annonascita integer	
+);
+
+insert into turista values('10', 'Rossi', 1980);
+insert into turista values('20', 'Bianchi', 1990);
+insert into turista values('30', 'Verdi', 1985);
+insert into turista values('40', 'Gialli', 1995);
+
+create table viaggio (
+	codice integer constraint pk2 primary key,
+	anno integer
+);
+
+insert into viaggio values(1, 2000);
+insert into viaggio values(2, 2005);
+insert into viaggio values(3, 2010);
+insert into viaggio values(4, 2012);
+insert into viaggio values(5, 2017);
+insert into viaggio values(6, 2020);
+
+create table visita (
+	turista varchar(20) references turista(codicefiscale),
+	citta varchar(20),
+	viaggio integer,
+	costo integer check(costo > 0),
+	constraint vincolo primary key (turista, citta, viaggio),
+	constraint vcascade foreign key (viaggio) references viaggio(codice) on delete cascade on update cascade
+);
+
+insert into visita values('10', 'Roma', 1, 500);
+insert into visita values('10', 'Viterbo', 1, 200);
+insert into visita values('10', 'Napoli', 2, 100);
+insert into visita values('20', 'Roma', 1, 300);
+insert into visita values('30', 'Venezia', 2, 700);
+insert into visita values('30', 'Roma', 3, 400);
+insert into visita values('30', 'Torino', 3, 500);
+insert into visita values('40', 'Roma', 4, 600);
+insert into visita values('40', 'Verona', 4, 400);
+insert into visita values('40', 'Genova', 5, 100);
+insert into visita values('40', 'Livorno', 5, 200);
+insert into visita values('40', 'Firenze', 6, 700);
+
+ESERCIZIO 5
+
+1) select distinct vi.turista, vi.citta
+   from visita vi, viaggio via
+   where vi.viaggio = via.codice and via.anno > 2010
+2) select distinct t.codicefiscale, via.codice, (via.anno - t.annonascita) as eta
+   from (turista t join visita vi on t.codicefiscale = vi.turista) join viaggio via on via.codice = vi.viaggio
+3) select distinct vi.citta, count(*)
+   from (turista t join visita vi on t.codicefiscale = vi.turista) join viaggio via on via.codice = vi.viaggio
+   where (via.anno - t.annonascita) < 18
+   group by vi.citta
+   having count(*) > 1
+4) select distinct sott.codicefiscale, sott.codice, max(sott.massimo)
+   from(select distinct t.codicefiscale, via.codice, max(vi.costo) as massimo
+	 from (turista t join visita vi on t.codicefiscale = vi.turista) join viaggio via on via.codice = vi.viaggio
+	 group by t.codicefiscale, via.codice
+	 union	
+	 select distinct t.codicefiscale, via.codice, 0 as massimo
+         from turista as t, visita vi, viaggio via
+	 where (t.codicefiscale, via.codice) not in(select turista.codicefiscale, visita.viaggio
+						    from turista join visita on (visita.turista=turista.codicefiscale))
+	) as sott
+   group by sott.codicefiscale, sott.codice
+5)
+
